@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  oracle-db:
+    image: gvenzl/oracle-xe
+    container_name: oracle-db-554914
+    environment:
+      - ORACLE_PASSWORD=admin123
+    ports:
+      - "1521:1521"
+    volumes:
+      - oracle-data:/opt/oracle/oradata
+
+  java-app:
+    build: .
+    container_name: java-api-554914
+    ports:
+      - "8080:8080"
+    depends_on:
+      - oracle-db
+
+volumes:
+  oracle-data:

@@ -1,0 +1,16 @@
+
+# Dockerfile para o container do Oracle XE
+FROM gvenzl/oracle-xe
+
+# Criação de usuário não-root
+ENV ORACLE_PASSWORD=admin
+ENV APP_USER=vinicius
+ENV APP_PASSWORD=admin123
+
+RUN microdnf install shadow-utils &&     useradd -m $APP_USER
+
+USER $APP_USER
+
+WORKDIR /home/$APP_USER
+
+EXPOSE 1521
